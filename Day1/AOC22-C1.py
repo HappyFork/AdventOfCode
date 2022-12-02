@@ -3,7 +3,7 @@
 
 max = 0 # Will hold the largest sum in the set
 
-with open( "inputc1" ) as f:        # Open the file as f
+with open( "inputd1" ) as f:        # Open the file as f
 
     lines = f.readlines()           # Read the lines into lines
     csum = 0                        # This will be the sum of the current block of lines
