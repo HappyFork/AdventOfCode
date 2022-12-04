@@ -17,6 +17,7 @@ def assign_priority( c ):               # Function to assign a priority to each 
         return v - temp
     else:
         # This shouldn't happen. Error
+        print( "You fucked up somehow" )
         return 0
 
 with open( "inputd3" ) as f:            # Open input file
