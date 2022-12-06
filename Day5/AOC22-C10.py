@@ -33,14 +33,18 @@ with open( "inputd5" ) as f:
         mov = int( t[1] )
         frm = int( t[3] ) - 1
         to = int( t[5] ) - 1
+        letr = []
 
-        stack_array[to].append( stack_array[frm][-mov:] )
-        for x in range(1, mov):
-            stack_array[frm].pop(-x)
+        for x in range(mov):
+            letr.append( stack_array[frm].pop(-1) )
 
-        #for x in range(mov):
-        #    letr = stack_array[frm].pop(-1)
-        #    stack_array[to].append( letr )
+        letr.reverse()
+
+        for y in letr:
+            stack_array[to].append( y )
+        
+        letr.clear()
 
 for s in stack_array:
+    #print( s )
     print( s[-1] )
