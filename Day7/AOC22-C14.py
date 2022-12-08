@@ -1,5 +1,5 @@
-# AOC22-C13.py
-# Advent of code 2022, challenge 13
+# AOC22-C14.py
+# Advent of code 2022, challenge 14
 
 # Class definitions
 class Directory:
@@ -34,8 +34,6 @@ class File:
         self.size = sz                      # Set instance size
 
 
-solution_size = 0
-
 # Read file
 with open( "inputd7" ) as f:
 
@@ -68,10 +66,14 @@ with open( "inputd7" ) as f:
         else:
             new_file = File( spl[1], int(spl[0]) )
             curr_dir.add_file( new_file )
-    
+
+unused = 70000000 - root_dir.size()
+need_to_free = 30000000 - unused
+solution_size = 70000000    # I need this to be some arbitrarily big number to start
+
 for d in created_dirs:
     s = d.size()
-    if s <= 100000:
-        solution_size += s
+    if s >= need_to_free and s < solution_size:
+        solution_size = s
     
 print( solution_size )
