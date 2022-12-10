@@ -13,6 +13,7 @@ rope = [
     [0,0],
     [0,0],
     [0,0],
+    [0,0],
     [0,0]
 ]
 
@@ -54,13 +55,17 @@ def rope_step( dir, rp ):
     #    tp[1] = start_head_pos[1]
 
     # Then add tail_pos to the tail_spots set
-    #print( str(rp[8][0]) + str(rp[8][1]) )
-    tail_spots.add( str(rp[8][0]) + str(rp[8][1]) )
+    #print( str(rp[-1][0]) + str(rp[-1][1]) )
+    tail_spots.add( str(rp[-1][0]) + str(rp[-1][1]) )
 
 
+#with open( "testd9.txt" ) as f:
 with open( "inputd9" ) as f:
     lines = f.readlines()
     for l in lines:
+        '''for x in range(len( rope )):
+            print( x, ": ", rope[x] )
+        print( tail_spots )'''
         instruction = l.strip().split()
         instruction[1] = int( instruction[1] )
         for x in range( instruction[1] ):
