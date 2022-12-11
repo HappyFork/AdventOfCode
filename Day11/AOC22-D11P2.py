@@ -65,8 +65,9 @@ class Monkey:
             case "+":
                 curr_item = curr_item + curr_val
 
-        # Divide the result by 3, then round down to int
-        #curr_item = floor( curr_item / 3 )
+        # Set curr_num to the modulo the lowest common denominator (9699690)
+        curr_item = curr_item % 9699690
+        # Oh my god, shout outs to Zaraza for basically giving me the answer here
 
         # Modulo current value by test
         curr_test = curr_item % self.test
