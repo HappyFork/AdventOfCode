@@ -68,7 +68,7 @@ for x in range(len(grid)):
     for y in range(len(grid[x])):
         if grid[x][y] == 'a':
             temp_cord_string = str(x) + ',' + str(y)
-            if path_cache[temp_cord_string] > shortest_a_path:
+            if temp_cord_string in path_cache and path_cache[temp_cord_string] < shortest_a_path:
                 shortest_a_path = path_cache[temp_cord_string]
 
 
