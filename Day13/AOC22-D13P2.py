@@ -1,12 +1,11 @@
-# AOC22-D13P1.py
-# Advent of code 2022, day 13 part 1
+# AOC22-D13P2.py
+# Advent of code 2022, day 13 part 2
 
 #FILENAME = "testd13"
 FILENAME = "inputd13"
 
 
-index = 1
-solution = 0
+parsed_lines = []
 
 
 def check_list( l, r ):
@@ -54,25 +53,23 @@ def check_list( l, r ):
 
 
 with open( FILENAME ) as f:
-    reading = True
-    while reading:
-        # Read the next two lines
-        left = eval(f.readline().strip())
-        right = eval(f.readline().strip())
+    lines = f.readlines()
+    for l in lines:
+        temp = l.strip()
+        if temp != "":
+            parsed_lines.append(eval(temp))
 
-        # Compare the lists
-        print( "Comparing ", left, "and", right )
-        if check_list( left, right ) == 1:
-            print( "Correct" )
-            solution += index
-        else:
-            print( "Incorrect" )
-
-        # If the next line is a new line, keep going
-        index += 1
-        n = f.readline()
-        if n != "\n":
-            reading = False
+parsed_lines.append([[2]])
+parsed_lines.append([[6]])
 
 
-print( solution )
+# Let's do a bubble sort! I'm a fraud and had to look up how to do this lol
+for i in range(len(parsed_lines)):
+    for j in range( 0, len(parsed_lines)-i-1 ):
+        if check_list( parsed_lines[j], parsed_lines[j+1] ) == -1:
+            parsed_lines[j], parsed_lines[j+1] = parsed_lines[j+1], parsed_lines[j]
+            # Looking up the bubble sort also taught me this cool way to swap values in python!
+
+
+# This next line would look so much better if the signal was 0 indexed but whatever!
+print( (parsed_lines.index([[2]]) + 1) * (parsed_lines.index([[6]]) + 1) )
