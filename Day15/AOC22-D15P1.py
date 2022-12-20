@@ -87,7 +87,7 @@ for sensor in sensor_sets:
 
     # Then add each space within that distance to no_beacons
     for x in range( sensor[0] - mdist, sensor[0] + mdist + 1 ):
-        mdiff = abs( x - sensor[0] )
+        mdiff = mdist - abs( x - sensor[0] )
         if 2000000 > sensor[1] - mdiff and 2000000 < sensor[1] + mdiff + 1:
             no_beacons.add( (x,2000000) )
         #for y in range( sensor[1] - mdiff, sensor[1] + mdiff + 1 ):
