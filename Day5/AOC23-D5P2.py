@@ -53,14 +53,39 @@ def get_map( line ):
 
 # Convert the origin array to the next array
 def match_maps( origin, map, output ):
+    for y in map:
+        diff = y[1]-y[0]
+        high_map_range = y[1]+y[2]-1
+        orig_copy = origin.copy()
+        for r in orig_copy:
+            if r[0] in range( y[1], high_map_range+1 ) and r[1] in range( y[1], high_map_range+1 ):
+                # If both values in the origin range are in the map range, the whole thing is there
+                output.append( [r[0]-diff, r[1]-diff] )
+                origin.remove( r )
+            elif r[1]<y[1] or r[0]>high_map_range:
+                # If the high end of the range is less than the low end of the map range, or
+                # vice versa, the whole thing is not in the range
+                pass    # Nothin' to do
+            else:
+                # This is the complicated one. Part of the range overlaps
+                if r[0]<y[1] and r[1]>y[1] and r[1]<high_map_range:
+                    # The end of the origin range is in the map range
+                    output.append( [y[0], r[1]-diff] )
+                    origin.append( [r[0], y[1]-1] )
+                    origin.remove( r )
+                elif r[1]>high_map_range and r[0]<high_map_range and r[0]>y[1]:
+                    # The beginning of the origin range is in the map range
+                    output.append( [r[0]-diff, high_map_range-diff] )
+                    origin.append( [ high_map_range+1, r[1] ] )
+                    origin.remove( r )
+                elif r[0]<y[1] and r[1]>high_map_range:
+                    # The middle of the origin range is in the map range
+                    output.append( [y[0], high_map_range-diff] )
+                    origin.append( [ r[0], y[1]-1 ] )
+                    origin.append( [ high_map_range+1, r[1] ] )
     for x in origin:
-        matched = False
-        for y in map:
-            if x in range( y[1], y[1] + y[2] ):
-                output.append( y[0] + (x-y[1]) )
-                matched = True
-        if not matched:
-            output.append( x )
+        # If there's anything left over in origin, just move it to output
+        output.append( x )
 
 
 # Open the file
@@ -69,8 +94,7 @@ with open( FILENAME ) as f:
     line = f.readline().split(":")
     st = line[1].strip().split(" ")
     for x in range( 0, len(st), 2 ):
-        for y in range( int(st[x]), int(st[x])+int(st[x+1])+1 ):
-            seeds.append( y )
+        seeds.append( [int(st[x]), int(st[x])+int(st[x+1])-1] )
     
     # Skip a line
     f.readline()
@@ -94,6 +118,6 @@ match_maps( humids, locat_map, locats ) # Humidity-to-location
 
 smallest = 9999999999
 for i in locats:
-    if i < smallest:
-        smallest = i
+    if i[0] < smallest:
+        smallest = i[0]
 print( smallest )
