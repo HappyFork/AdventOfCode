@@ -1,15 +1,20 @@
-# AOC23-D4P1.py
-# Advent of code 2023, day 4 part 1
+# AOC23-D4P2.py
+# Advent of code 2023, day 4 part 2
 
 #FILENAME = "testd4.txt"
 FILENAME = "inputd4"
 
 total = 0           # Puzzle solution
+cards = {}
 
 
 # Open the file
 with open( FILENAME ) as f:
     lines = f.readlines()
+
+    for x in range( 0, len(lines) ):
+        cards[x+1] = 1
+
     for l in lines:
         win = []
         have = []
