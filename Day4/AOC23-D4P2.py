@@ -8,6 +8,13 @@ total = 0           # Puzzle solution
 cards = {}
 
 
+def increment_cards( index, amount ):
+    if index not in cards.keys():
+        cards[index] = amount
+    else:
+        cards[index] += amount
+
+
 # Open the file
 with open( FILENAME ) as f:
     lines = f.readlines()
@@ -18,11 +25,13 @@ with open( FILENAME ) as f:
     for l in lines:
         win = []
         have = []
+        cgame = 0
 
-        spl = l.split(":")[1]
-        spl = spl.split("|")
-        w_raw = spl[0].strip().split(" ")
-        h_raw = spl[1].strip().split(" ")
+        spl = l.split(":")
+        cgame = int( spl[0].split(" ")[-1] )
+        nums = spl[1].split("|")
+        w_raw = nums[0].strip().split(" ")
+        h_raw = nums[1].strip().split(" ")
         for x in w_raw:
             if x != '':
                 win.append( int(x) )
@@ -36,7 +45,10 @@ with open( FILENAME ) as f:
                 matches += 1
         
         if matches != 0:
-            total += 2**(matches - 1)
+            for i in range( 1, matches + 1 ):
+                increment_cards( cgame + i, cards[cgame] )
 
 
+for x in cards.values():
+    total += x
 print( total )
