@@ -2,11 +2,11 @@
 # Advent of code 2023, day 6 part 1
 
 
-FILENAME = "testd6.txt"
-#FILENAME = "inputd6"
+#FILENAME = "testd6.txt"
+FILENAME = "inputd6"
 
 
-total = 0   # Puzzle solution
+total = 1   # Puzzle solution
 
 
 # Open the file
@@ -17,13 +17,19 @@ with open( FILENAME ) as f:
 times = t.split(":")[1].strip().split(" ")
 distances = d.split(":")[1].strip().split(" ")
 
-for t in times:
+for t in range(0,len(times)):
     if "" in times:
         times.remove( "" )
 
-for d in distances:
+for d in range(0,len(distances)):
     if "" in distances:
         distances.remove( "" )
 
-print( times )
-print( distances )
+for i in range( 0, len(times) ):
+    win_strats = 0
+    for x in range( 0, int(times[i]) ):
+        if (x*(int(times[i])-x)) > int(distances[i]):
+            win_strats += 1
+    total *= win_strats
+
+print( total )
