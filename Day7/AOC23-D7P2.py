@@ -44,6 +44,8 @@ for h in hands.keys():
 # Sort the five-of-a-kinds
 if len(s5oak) > 1:
     bsort(s5oak)
+print( "Five of a kinds" )
+print( s5oak )
 # Assign ranks
 for h in s5oak:
     hands[h][1] = cur_rank
@@ -58,11 +60,18 @@ for h in hands.keys():
             counts += str( h.count(c) )
         if "4" in counts:
             s4oak.append( h )
-        elif str( 4-h.count("J") ) in counts and counts.count("1") == 1:
+        elif h.count("J") == 3:
             s4oak.append( h )
+        elif str( 4-h.count("J") ) in counts:
+            for c in range( 0, len(h) ):
+                if h[c] != "J" and h.count( h[c] )+h.count( "J" ) == 4:
+                    s4oak.append( h )
+                    break
 # Sort the four-of-a-kinds
 if len(s4oak) > 1:
     bsort(s4oak)
+print( "Four of a kinds" )
+print( s4oak )
 # Assign ranks
 for h in s4oak:
     hands[h][1] = cur_rank
@@ -89,8 +98,12 @@ for h in hands.keys():
 # Sort the arrays
 if len(sfullh) > 1:
     bsort(sfullh)
+print( "Full houses" )
+print( sfullh )
 if len(s3oak) > 1:
     bsort(s3oak)
+print( "Three of a kinds" )
+print ( s3oak )
 # Assign ranks
 for h in sfullh:
     hands[h][1] = cur_rank
@@ -114,8 +127,12 @@ for h in hands.keys():
 # Sort the arrays
 if len(s2pair) > 1:
     bsort(s2pair)
+print( "Two pairs" )
+print( s2pair )
 if len(s1pair) > 1:
     bsort(s1pair)
+print( "One pairs" )
+print( s1pair )
 # Assign ranks
 for h in s2pair:
     hands[h][1] = cur_rank
@@ -131,6 +148,8 @@ for h in hands.keys():
         left.append( h )
 if len(left) > 1:
         bsort(left)
+print( "High cards" )
+print( left )
 for h in left:
     hands[h][1] = cur_rank
     cur_rank -= 1
