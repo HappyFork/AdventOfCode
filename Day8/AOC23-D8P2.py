@@ -45,3 +45,6 @@ for l in starts:
             else:
                 index += 1
     steps.append( step )
+
+
+print( steps )
